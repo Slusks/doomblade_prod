@@ -18,11 +18,28 @@ import os
 #to run: flask run
 app = Flask(__name__)
 
-# Load data from JSON file
-with open('plotly_formatted_data.json', 'r') as f:
-    data = json.load(f)
-with open('EDH_plotly_formatted_data.json', 'r') as E:
-    EDH_data = json.load(E)
+import firebase_admin
+from firebase_admin import credentials, db
+
+# Initialize the Firebase app
+cred = credentials.Certificate("../doomblade/doombladeFirebaseKey.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://doomblade-b08ea-default-rtdb.firebaseio.com/'
+})
+
+# Load data from Firebase
+def fetch_data_from_firebase(path):
+    ref = db.reference(path)
+    return ref.get()
+
+# Get data for 'home' and 'EDH'
+data = fetch_data_from_firebase('home')
+EDH_data = fetch_data_from_firebase('EDH')
+
+# Now 'data' and 'EDH_data' contain the same structure as before
+print(data)
+print(EDH_data)
+
     
 @app.route('/')
 def index():
@@ -63,12 +80,12 @@ def plot():
 @app.route("/commander", methods=["GET"])
 def commander():
     # Load data from EDH_plotly_formatted_data.json instead of plotly_formatted_data.json
-    with open('EDH_plotly_formatted_data.json', 'r') as f:
-        data = json.load(f)
-        print(data)
+    data=EDH_data
+
     
     # Assuming the data has the same structure as the original plot function
     commander_data = data[0]['commander']
+    print("commander_data", commander_data)
     card_names = commander_data[0]  # List of card names
     card_values = commander_data[1]  # Corresponding list of values
 
