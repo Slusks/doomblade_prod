@@ -30,6 +30,8 @@ if firebase_creds_json:
     firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://doomblade-b08ea-default-rtdb.firebaseio.com/'
     })
+else:
+    raise ValueError("Firebase credentials not set in environment variables")
 
 
 # Load data from Firebase
