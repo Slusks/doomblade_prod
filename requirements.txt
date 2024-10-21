@@ -11,7 +11,7 @@ MarkupSafe==2.1.1
 firebase-admin==6.5.0
 google-api-core==2.21.0
 google-auth==2.35.0
-google-cloud-firestore==2.19.0
+#google-cloud-firestore==2.19.0
 
 # Plotly and Data Manipulation
 plotly==5.24.1
@@ -20,7 +20,7 @@ pytz==2022.5
 
 # HTTP Requests
 requests==2.31.0
-urllib3==2.1.0
-certifi==2023.11.17
-charset-normalizer==3.3.2
-idna==3.6
+#urllib3==2.1.0
+#certifi==2023.11.17
+#charset-normalizer==3.3.2
+#idna==3.6
