@@ -22,10 +22,15 @@ import firebase_admin
 from firebase_admin import credentials, db
 
 # Initialize the Firebase app
-cred = credentials.Certificate("../doomblade/doombladeFirebaseKey.json")
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://doomblade-b08ea-default-rtdb.firebaseio.com/'
-})
+# Load Firebase credentials from environment variables
+firebase_creds_json = os.getenv('FIREBASE_CREDENTIALS')
+if firebase_creds_json:
+    cred_dict = json.loads(firebase_creds_json)
+    cred = credentials.Certificate(cred_dict)
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://doomblade-b08ea-default-rtdb.firebaseio.com/'
+    })
+
 
 # Load data from Firebase
 def fetch_data_from_firebase(path):
@@ -130,4 +135,4 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
