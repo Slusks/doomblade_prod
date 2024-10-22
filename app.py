@@ -4,6 +4,7 @@ import json
 import plotly.graph_objs as go
 import plotly.io as pio
 import os
+import base64
 
 
 #to run: flask run
@@ -13,12 +14,11 @@ import firebase_admin
 from firebase_admin import credentials, db, initialize_app
 
 # Fetch and fix the private key from the environment variable
-raw_private_key = os.environ.get("PRIVATE_KEY")
-if raw_private_key:
-    private_key = raw_private_key.replace("\\n", "\n")  # Convert to actual newlines
-    print(repr(private_key[:50]))
+encoded_private_key = os.environ.get("PRIVATE_KEY_64")
+if encoded_private_key:
+    private_key = base64.b64decode(encoded_private_key).decode()
 else:
-    print("PRIVATE_KEY environment variable is not set.")
+    print("PRIVATE_KEY_64 environment variable is not set.")
     private_key = ""
 
 firebase_credentials = {
@@ -49,9 +49,9 @@ try:
     })
     print("Firebase initialized successfully.")
 except ValueError as e:
-    print(f"Failed to initialize Firebase: {e}")
+    print(f"OMG Failed to initialize Firebase: {e}")
 except Exception as e:
-    print(f"Unexpected error: {e}")
+    print(f"OMG Unexpected error: {e}")
 
 # Load data from Firebase
 def fetch_data_from_firebase(path):
