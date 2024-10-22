@@ -5,15 +5,6 @@ import plotly.graph_objs as go
 import plotly.io as pio
 import os
 
-#import firebase_admin
-#from firebase_admin import credentials, firestore
-
-# Initialize Firebase Admin with service account key JSON file
-#cred = credentials.Certificate('path/to/your/firebase-service-account.json')
-#firebase_admin.initialize_app(cred)
-
-# Initialize Firestore
-#db = firestore.client()
 
 #to run: flask run
 app = Flask(__name__)
@@ -21,29 +12,46 @@ app = Flask(__name__)
 import firebase_admin
 from firebase_admin import credentials, db, initialize_app
 
+# Fetch and fix the private key from the environment variable
+raw_private_key = os.environ.get("PRIVATE_KEY")
+if raw_private_key:
+    private_key = raw_private_key.replace("\\n", "\n")  # Convert to actual newlines
+    print(repr(private_key[:50]))
+else:
+    print("PRIVATE_KEY environment variable is not set.")
+    private_key = ""
+
 firebase_credentials = {
     "type": "service_account",
-    "project_id": os.getenv("PROJECT_ID"),
-    "private_key_id": os.getenv("PRIVATE_KEY_ID"),
-    "private_key": os.getenv("PRIVATE_KEY").replace("\\n","\n"),
-    "client_email": os.getenv("CLIENT_EMAIL"),
-    "client_id": os.getenv("CLIENT_ID"),
+    "project_id": os.environ.get("PROJECT_ID"),
+    "private_key_id": os.environ.get("PRIVATE_KEY_ID"),
+    "private_key": private_key,
+    "client_email": os.environ.get("CLIENT_EMAIL"),
+    "client_id": os.environ.get("CLIENT_ID"),
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
     "token_uri": "https://oauth2.googleapis.com/token",
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
-    "universe_domain": os.getenv("UNIVERSE_DOMAIN")
+    "client_x509_cert_url": os.environ.get("CLIENT_X509_CERT_URL"),
+    "universe_domain": os.environ.get("UNIVERSE_DOMAIN")
 }
 
 # Initialize the Firebase app
 # Load Firebase credentials from environment variables
 
 # Initialize Firebase app with the credentials and database URL
-
-cred = credentials.Certificate(firebase_credentials)
-initialize_app(cred, {
-    'databaseURL': 'https://doomblade-b08ea-default-rtdb.firebaseio.com/'
-})
+print(f"Private key length: {len(firebase_credentials["private_key"])}")
+print(f"Private key snippet: {firebase_credentials["private_key"][:35]}...{firebase_credentials["private_key"][-35:]}")
+try:
+    # Initialize Firebase with corrected credentials
+    cred = credentials.Certificate(firebase_credentials)
+    initialize_app(cred, {
+        'databaseURL': 'https://doomblade-b08ea-default-rtdb.firebaseio.com/'
+    })
+    print("Firebase initialized successfully.")
+except ValueError as e:
+    print(f"Failed to initialize Firebase: {e}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
 
 # Load data from Firebase
 def fetch_data_from_firebase(path):
