@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commander Pie Chart</title>
+    <title>DoomBladeMTG.com</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
     <!-- Bootstrap CSS CDN -->
@@ -21,12 +21,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="/commander">Commander</a></li>
+                    <li class="nav-item" ><a class="nav-link" href="/about">About</a></li>
                     <!--<li class="nav-item"><a class="nav-link" href="contact" aria-disabled>Contact</a></li>-->
                 </ul>
                 <div class="d-flex">
-                    <button id="theme-toggle" class="btn btn-secondary">Dark Mode On</button>
+                    <button id="theme-toggle" class="btn btn-secondary">Dark Mode</button>
                 </div>
             </div>
         </div>
@@ -34,6 +34,11 @@
 
     <!-- Main content area -->
     <div class="container content">
+        <p>
+            Since Commander is such a huge format, I made a specific commander centric display which players
+            might find more useful. This chart shows how many of the top 250 creatures by play rate, each Doom Blade
+            variant can destroy.
+        </p>
          
         <div id="plot"></div>
 
@@ -61,13 +66,13 @@
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
+                        I'd love to give you an example. 
+                        Solemn Simulacrum appears in the top 50 creatures on EDHRec for 841 of the ~2500 legendary creatures
+                        available to be a commander. Eternal Witness appears 377 times in those same top 50 lists. 
+                        Braids, Arisen Nightmare, appears in 168 of those top 50 lists. So I took whatever the top 250 creatures
+                        were appearing in those lists, and then ran the same targeting parameters that I ran for the other pages,
+                        against just those 250 creatures. 
                     </div>
-                    I'd love to give you an example. 
-                    Solemn Simulacrum appears in the top 50 creatures on EDHRec for 841 of the ~2500 legendary creatures
-                    available to be a commander. Eternal Witness appears 377 times in those same top 50 lists. 
-                    Braids, Arisen Nightmare, appears in 168 of those top 50 lists. So I took whatever the top 250 creatures
-                    were appearing in those lists, and then ran the same targeting parameters that I ran for the other pages,
-                    against just those 250 creatures. 
                 </div>
             </div>
             <div class="accordion-item">
@@ -160,7 +165,7 @@
                 body.classList.remove('dark-mode');
                 navbar.classList.remove('dark-mode');
                 footer.classList.remove('dark-mode');
-                themeToggleButton.innerText = 'Dark Mode On';
+                themeToggleButton.innerText = 'Light Mode';
 
                 // Apply light mode styles to the plot
                 applyThemeToPlot('Light Mode');
@@ -168,7 +173,7 @@
                 body.classList.add('dark-mode');
                 navbar.classList.add('dark-mode');
                 footer.classList.add('dark-mode');
-                themeToggleButton.innerText = 'Light Mode On';
+                themeToggleButton.innerText = 'Dark Mode';
 
                 // Apply dark mode styles to the plot
                 applyThemeToPlot('Dark Mode');
@@ -185,7 +190,7 @@
                 document.body.classList.add('dark-mode');
                 document.querySelector('.navbar').classList.add('dark-mode');
                 document.querySelector('.footer').classList.add('dark-mode');
-                document.getElementById('theme-toggle').innerText = 'Light Mode On';
+                document.getElementById('theme-toggle').innerText = 'Dark Mode';
                 
                 // Apply dark mode styles to the plot
                 applyThemeToPlot('Dark Mode');
