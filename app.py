@@ -93,7 +93,7 @@ def plot():
                              orientation='h',
                              marker_color="black",
                       hovertemplate='%{label}: %{value:,.0f}<extra></extra>' )])
-    fig.update_layout(title=f'What dies to Doomblade in {selected_format}?', 
+    fig.update_layout(title=f'How many creatures can each spell target in {selected_format}?', 
                       xaxis_title='Number of Creatures that Die to Spell', 
                       yaxis_title='Card Names', 
                       xaxis=dict(tickformat=',d'))
@@ -106,39 +106,31 @@ def plot():
 @app.route("/commander", methods=["GET"])
 def commander():
     # Load data from EDH_plotly_formatted_data.json instead of plotly_formatted_data.json
-    data=EDH_data
+    data = EDH_data
 
-    
     # Assuming the data has the same structure as the original plot function
     commander_data = data[0]['commander']
     print("commander_data", commander_data)
-    card_names = commander_data[0]  # List of card names
-    card_values = commander_data[1]  # Corresponding list of values
-
-    # Normalize the values so that they sum up to 250
-    total_value = sum(card_values)
-
-    normalized_values = [round((value / 250) * 100,2) for value in card_values]
-
-    mtg_colors = ["hsl(54, 37%, 84%)", 
-                  "hsl(220, 70%, 50%)",  
-                  "hsl(0, 0%, 10%)", 
-                  "hsl(0, 70%, 40%)", 
-                  "hsl(120, 70%, 40%)"]
-
-       # Generate the colors by repeating the mtg_colors pattern
-    wedge_colors = [mtg_colors[i % len(mtg_colors)] for i in range(len(card_names))]
+    x_data = commander_data[0]  # List of card names
+    y_data = commander_data[1]  # Corresponding list of values
 
 
-    # Create the pie chart trace
-    trace = go.Pie(labels=card_names, 
-                   values=normalized_values,
-                   marker = dict(colors=wedge_colors,
-                   line=dict(color='black', width=2)))
+    # Convert y_data to percentages of 250
+    percentage_values = [(value / 250) * 100 for value in y_data]
 
-    # Define the layout of the pie chart
+    # Create the histogram trace
+    trace = go.Histogram(
+        x=x_data,  # Card names
+        y=percentage_values,  # Corresponding normalized values
+        marker=dict(color='lightblue', line=dict(color='black', width=1.5)),
+        histfunc='sum',
+        hovertemplate='<b>Card Name:</b> %{x}<br><b>Percentage:</b> %{y:.2f}%<extra></extra>')    
+
+    # Define the layout of the histogram
     layout = go.Layout(
-        title='Percentag of the top 250 Creatures Targetable in Commander',
+        title='Distribution of the Top 250 Creatures Targetable in Commander',
+        xaxis=dict(title='Card Names'),
+        yaxis=dict(title='Percentage of Appearances'),
         paper_bgcolor='white',
         plot_bgcolor='white'
     )
