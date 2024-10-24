@@ -62,7 +62,7 @@
             border-top: 2px solid black;
         }
 
-        .footer .dark-mode {
+        .footer.dark-mode {
             background-color: hsla(204,98%,24%);
             border-top: 2px solid whitesmoke;
         }

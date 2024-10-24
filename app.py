@@ -117,12 +117,13 @@ def commander():
 
     # Convert y_data to percentages of 250
     percentage_values = [(value / 250) * 100 for value in y_data]
+    print("-----",percentage_values)
 
     # Create the histogram trace
     trace = go.Histogram(
         x=x_data,  # Card names
         y=percentage_values,  # Corresponding normalized values
-        marker=dict(color='lightblue', line=dict(color='black', width=1.5)),
+        marker=dict(color='black', line=dict(color='white', width=1.5)),
         histfunc='sum',
         hovertemplate='<b>Card Name:</b> %{x}<br><b>Percentage:</b> %{y:.2f}%<extra></extra>')    
 
