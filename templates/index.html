@@ -37,46 +37,8 @@
     <!-- Main content area -->
     <div class="container content">
 
-        <!-- Bootstrap Accordion container -->
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        What is a Doom Blade?
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        For the purposes of this project, I defined a doomblade as a 2 mana value black instant which targets and destroys a single creature, usually with some restriction on what it can target.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Where did this data come from?
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        The card data and images come to us via the delightful people at scryfall.com, and their excellent API and Bulk Data files. I store the entire Oracle card file as a .json file, and then make calls to that file for calculating the plots. For retrieving the image assets I just make a simple API call on load.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        I'm Lost, What does any of this mean?
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        This site provides simple visual tools for Magic: The Gathering players to determine the most effective card for their decks. For more details, check out the About page!
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Accordion-->
+        <h2>Welcome! Use the dropdown below to select the format you'd like to explore</h2>
+
 
                 <div id="form-container" class="my-3">
             <form id="format-form">
@@ -90,14 +52,51 @@
             </form>
         </div>
 
-
-
         <div id="plot"></div>
 
         <!-- Gallery view for card images -->
         <div class="gallery" id="gallery-container"></div>
 
-        
+                <!-- Bootstrap Accordion container -->
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                What is a Doom Blade?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                For the purposes of this project, I defined a doomblade as a 2 mana value black instant which targets and destroys a single creature, usually with some restriction on what it can target.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Where did this data come from?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                The card data and images come to us via the delightful people at scryfall.com, and their excellent API and Bulk Data files. I store the entire Oracle card file as a .json file, and then make calls to that file for calculating the plots. For retrieving the image assets I just make a simple API call on load.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                I'm Lost, What does any of this mean?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                This site provides simple visual tools for Magic: The Gathering players to determine the most effective card for their decks. For more details, check out the About page!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Accordion-->
 
     </div>
 

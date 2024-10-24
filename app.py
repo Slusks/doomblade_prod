@@ -91,14 +91,14 @@ def plot():
 
     # Create a histogram using Plotly
 
-    fig = go.Figure(data=[go.Bar(x=y_data, y=x_data,
-                             orientation='h',
+    fig = go.Figure(data=[go.Bar(x=x_data, y=y_data,
+                             #orientation='h',
                              marker_color="black",
                       hovertemplate='%{label}: %{value:,.0f}<extra></extra>' )])
     fig.update_layout(title=f'How many creatures can each spell target in {selected_format}?', 
-                      xaxis_title='Number of Creatures that Die to Spell', 
-                      yaxis_title='Card Names', 
-                      xaxis=dict(tickformat=',d'))
+                      yaxis_title='Number of Creatures that Die to Spell', 
+                      xaxis_title='Card Names', 
+                      yaxis=dict(tickformat=',d'))
     
     # Convert the plot to JSON format
     graph_json = pio.to_json(fig)

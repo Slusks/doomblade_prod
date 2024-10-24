@@ -35,62 +35,63 @@
     <!-- Main content area -->
     <div class="container content">
          
-            <!-- Bootstrap Accordion container -->
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            How did you establish your top 250
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            I utilized EDHRec's top 50 creatures associated with a commander for every single legendary creature. 
-                            Then I tabulated how many times each creature appears in one of those top 50 lists. I then cut that
-                            list to the top 250 most frequently occuring creatures.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Can you Give me an Example?
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                        </div>
-                        I'd love to give you an example. 
-                        Solemn Simulacrum appears in the top 50 creatures on EDHRec for 841 of the ~2500 legendary creatures
-                        available to be a commander. Eternal Witness appears 377 times in those same top 50 lists. 
-                        Braids, Arisen Nightmare, appears in 168 of those top 50 lists. So I took whatever the top 250 creatures
-                        were appearing in those lists, and then ran the same targeting parameters that I ran for the other pages,
-                        against just those 250 creatures. 
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            This Data is Going to Be Skewed.
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            It sure will! this data doesn't take into account how popular a given commander is.
-                            If 10,000 people have Zedruu the Greathearted commander decks, and 5 people have a Teferi, Archmage of Zhalfir
-                            commander deck, and they both run Mulldrifter, but Teferi doesn't run The Reality Chip, then Mulldrifter will have 2 instances,
-                            and The Reality Chip will only have 1 instance, even though the Reality Chip sees probably 2000x play.
-                            <br>
-                            Once I can develop a more sophisticated way of accessing EDHRec's commander data, I would love to add some additional
-                            analytics, but for the time being, this should give you a good idea versus a random sample of commanders. If this is something
-                            important to you, or something you'd like to see, please let me know on the contact page!
-                        </div>
+        <div id="plot"></div>
+
+        <!-- Bootstrap Accordion container -->
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        How did you establish your top 250
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        I utilized EDHRec's top 50 creatures associated with a commander for every single legendary creature. 
+                        Then I tabulated how many times each creature appears in one of those top 50 lists. I then cut that
+                        list to the top 250 most frequently occuring creatures.
                     </div>
                 </div>
             </div>
-            <br>
-            <!-- End Accordion-->
-            <div id="plot"></div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Can you Give me an Example?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                    </div>
+                    I'd love to give you an example. 
+                    Solemn Simulacrum appears in the top 50 creatures on EDHRec for 841 of the ~2500 legendary creatures
+                    available to be a commander. Eternal Witness appears 377 times in those same top 50 lists. 
+                    Braids, Arisen Nightmare, appears in 168 of those top 50 lists. So I took whatever the top 250 creatures
+                    were appearing in those lists, and then ran the same targeting parameters that I ran for the other pages,
+                    against just those 250 creatures. 
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        This Data is Going to Be Skewed.
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        It sure will! this data doesn't take into account how popular a given commander is.
+                        If 10,000 people have Zedruu the Greathearted commander decks, and 5 people have a Teferi, Archmage of Zhalfir
+                        commander deck, and they both run Mulldrifter, but Teferi doesn't run The Reality Chip, then Mulldrifter will have 2 instances,
+                        and The Reality Chip will only have 1 instance, even though the Reality Chip sees probably 2000x play.
+                        <br>
+                        Once I can develop a more sophisticated way of accessing EDHRec's commander data, I would love to add some additional
+                        analytics, but for the time being, this should give you a good idea versus a random sample of commanders. If this is something
+                        important to you, or something you'd like to see, please let me know on the contact page!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- End Accordion-->
         </div>
     <!-- Footer -->
     <footer class="footer text-light py-3">
