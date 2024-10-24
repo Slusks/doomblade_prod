@@ -63,10 +63,12 @@ data = fetch_data_from_firebase('home')
 EDH_data = fetch_data_from_firebase('EDH')
 
 # Now 'data' and 'EDH_data' contain the same structure as before
-print(data)
-print(EDH_data)
+if data:
+    print ("got data")
+if EDH_data:
+    print("got EDH Data")
 
-    
+
 @app.route('/')
 def index():
     formats = [list(d.keys())[0] for d in data]  # Extract formats from the data
