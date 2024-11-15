@@ -60,7 +60,7 @@
                 which Doom Blade is right for you.
             </p>
             <br>
-            <h3> How Did This Project Come Together</h3>
+            <h3> How This Project Came Together</h3>
             <p>
                 Since this was primarily a coding project for me, I thought I'd provide a few details about the actual making of this project.
                 Doom Blade.com was made using:
@@ -102,9 +102,9 @@
     <!-- Footer -->
     <footer class="footer text-light py-3">
         <div class="container">
-            Email: Contact.Samsite@gmail.com
+            Email: Contact.Samsite@gmail.com 
             <br>
-            Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC. © 1995-2024 Wizards. All rights reserved. This site is not affiliated with Wizards of the Coast LLC.
+            <span style="font-size:0.7rem">Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC. © 1995-2024 Wizards. All rights reserved. This site is not affiliated with Wizards of the Coast LLC.</span>
         </div>
     </footer>
 
@@ -114,6 +114,12 @@
         var body = document.body;
         var navbar = document.querySelector('.navbar');
         var themeToggleButton = document.getElementById('theme-toggle');
+
+        if (!savedTheme) {
+            // Set default to 'Light Mode' if no theme is saved
+            savedTheme = 'Light Mode';
+            localStorage.setItem('theme', savedTheme);
+        }
 
         if (savedTheme === 'Dark Mode') {
             body.classList.add('dark-mode');

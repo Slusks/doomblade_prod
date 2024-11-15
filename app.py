@@ -134,8 +134,9 @@ def commander():
         title='Distribution of the Top 250 Creatures Targetable in Commander',
         xaxis=dict(title='Card Names'),
         yaxis=dict(title='Percentage of Appearances'),
-        paper_bgcolor='white',
-        plot_bgcolor='white'
+        #paper_bgcolor='white',
+        #plot_bgcolor='white'
+        
     )
 
     # Combine the trace and layout into a figure

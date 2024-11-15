@@ -42,7 +42,7 @@
         </p>
          
         <div id="plot"></div>
-
+        <br>
         <!-- Bootstrap Accordion container -->
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -102,9 +102,9 @@
     <!-- Footer -->
     <footer class="footer text-light py-3">
         <div class="container">
-            Contact: Contact.Samsite@gmail.com 
+            Email: Contact.Samsite@gmail.com 
             <br>
-            Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC. © 1995-2024 Wizards. All rights reserved. This site is not affiliated with Wizards of the Coast LLC.
+            <span style="font-size:0.7rem">Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC. © 1995-2024 Wizards. All rights reserved. This site is not affiliated with Wizards of the Coast LLC.</span>
         </div>
     </footer>
 
@@ -113,11 +113,57 @@
         // Access the JSON data passed from Flask
         var graphData = JSON.parse('{{ graph_json|safe }}');
 
+        function applySavedTheme() {
+            var savedTheme = localStorage.getItem('theme') || 'Light Mode'; // Default to 'Light Mode'
+            var body = document.body;
+            var footer = document.querySelector('.footer');
+            var navbar = document.querySelector('.navbar');
+            var themeToggleButton = document.getElementById('theme-toggle');
+            var accordion = document.querySelector('.accordion-button')
+           
+
+            if (savedTheme === 'Dark Mode') {
+                body.classList.add('dark-mode');
+                navbar.classList.add('dark-mode');
+                footer.classList.add('dark-mode');
+                accordion.classList.add('dark-mode');
+                themeToggleButton.innerText = 'Dark Mode';
+                //Plot Update
+                graphData.layout.paper_bgcolor = '#242728';      // Dark background
+                graphData.layout.plot_bgcolor = '#242728';
+                graphData.layout.font = { color: 'white' };
+
+                Plotly.react('plot', graphData.data, graphData.layout);
+            } else {
+                body.classList.remove('dark-mode');
+                navbar.classList.remove('dark-mode');
+                footer.classList.remove('dark-mode');
+                accordion.classList.remove('dark-mode');
+                themeToggleButton.innerText = 'Light Mode';
+                //Plot Update
+                graphData.layout.paper_bgcolor = 'white';
+                graphData.layout.plot_bgcolor = 'white';
+                graphData.layout.font = { color: 'black' };
+
+                Plotly.react('plot', graphData.data, graphData.layout);
+            }
+            // Update the existing plot with new layout
+            
+
+            Plotly.newPlot('plot', graphData.data, graphData.layout);
+
+            return savedTheme; // Return the applied theme
+        }
+    // Save the theme to localStorage
+    function saveTheme(theme) {
+            localStorage.setItem('theme', theme);
+        }
+
         // Function to apply light or dark mode styles to the chart
-        function applyThemeToPlot(theme) {
+      function applyThemeToPlot(theme) {
             if (theme === 'Dark Mode') {
-                graphData.layout.paper_bgcolor = '#333';
-                graphData.layout.plot_bgcolor = '#333';
+                graphData.layout.paper_bgcolor = '#242728';      // Dark background
+                graphData.layout.plot_bgcolor = '#242728';
                 graphData.layout.font = { color: 'white' };
             } else {
                 graphData.layout.paper_bgcolor = 'white';
@@ -127,7 +173,7 @@
             // Update the existing plot with new layout
             Plotly.react('plot', graphData.data, graphData.layout);
         }
-
+        
         // Render the chart using Plotly (initial load)
         Plotly.newPlot('plot', graphData.data, graphData.layout);
 
@@ -156,7 +202,7 @@
 
 
         // Theme toggle function
-        function toggleTheme() {
+       /* function toggleTheme() {
             var body = document.body;
             var navbar = document.querySelector('.navbar');
             var footer = document.querySelector('.footer');
@@ -169,7 +215,7 @@
                 themeToggleButton.innerText = 'Light Mode';
 
                 // Apply light mode styles to the plot
-                applyThemeToPlot('Light Mode');
+                applySavedTheme('Light Mode');
             } else {
                 body.classList.add('dark-mode');
                 navbar.classList.add('dark-mode');
@@ -177,15 +223,54 @@
                 themeToggleButton.innerText = 'Dark Mode';
 
                 // Apply dark mode styles to the plot
-                applyThemeToPlot('Dark Mode');
+                applySavedTheme('Dark Mode');
+            }
+        }
+*/
+        function toggleTheme() {
+            var body = document.body;
+            var navbar = document.querySelector('.navbar');
+            var footer = document.querySelector('.footer');
+            var themeToggleButton = document.getElementById('theme-toggle');
+            
+            var accordion = document.querySelector('.accordion-button')
+
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                navbar.classList.remove('dark-mode');
+                footer.classList.remove('dark-mode');
+                accordion.classList.remove('dark-mode');
+                themeToggleButton.innerText = 'Light Moden';
+                saveTheme('Light Mode');
+                applyThemeToPlot('Light Mode'); // Re-generate the plot with light mode
+                /*Plot Update
+                graphData.layout.paper_bgcolor = 'white';
+                graphData.layout.plot_bgcolor = 'white';
+                graphData.layout.font = { color: 'black' };
+                */
+            } else {
+                body.classList.add('dark-mode');
+                navbar.classList.add('dark-mode');
+                footer.classList.add('dark-mode');
+                accordion.classList.add('dark-mode');
+                themeToggleButton.innerText = 'Dark Mode';
+                saveTheme('Dark Mode');
+                applyThemeToPlot('Dark Mode'); // Re-generate the plot with dark mode
+                /*Plot Update
+                graphData.layout.paper_bgcolor = '#242728';      // Dark background
+                graphData.layout.plot_bgcolor = '#242728';
+                graphData.layout.font = { color: 'white' };
+                */
             }
         }
 
+
         // Add event listener for theme toggle button
-        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        //document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
         // Apply saved theme on page load (optional)
         document.addEventListener('DOMContentLoaded', function () {
+
             var savedTheme = localStorage.getItem('theme') || 'Light Mode';
             if (savedTheme === 'Dark Mode') {
                 document.body.classList.add('dark-mode');
@@ -194,8 +279,13 @@
                 document.getElementById('theme-toggle').innerText = 'Dark Mode';
                 
                 // Apply dark mode styles to the plot
-                applyThemeToPlot('Dark Mode');
+                applySavedTheme();
             }
+
+                // Add event listener for theme toggle button
+                document.getElementById('theme-toggle').addEventListener('click', function() {
+                toggleTheme();
+            });
         });
     </script>
 
