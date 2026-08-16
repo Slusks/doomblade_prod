@@ -69,6 +69,13 @@ if EDH_data:
     print("got EDH Data")
 
 
+REJECTED_DOOMBLADES = [
+    {"name": "Snuff Out", "reason": "Not a Doom Blade — costs 4 mana, or 0 mana if you pay 4 life and control a Swamp."},
+    {"name": "Get Lost", "reason": "Not a Doom Blade — it's white, not black."},
+    {"name": "Murder", "reason": "Not a Doom Blade — costs 3 mana and has no targeting restriction."},
+    {"name": "Bitter Triumph", "reason": "Not a Doom Blade — has no targeting restriction."},
+]
+
 @app.route('/')
 def index():
     formats = [list(d.keys())[0] for d in data]  # Extract formats from the data
@@ -146,6 +153,19 @@ def commander():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/rejected-doomblades')
+def rejected_doomblades():
+    return render_template('rejected.html', rejected_cards=REJECTED_DOOMBLADES)
+
+@app.route('/suggest-doomblade', methods=['POST'])
+def suggest_doomblade():
+    suggestion = request.form.get('suggestion', '').strip()
+    if not suggestion:
+        return jsonify({'error': 'Please enter a card name.'}), 400
+
+    db.reference('suggestions').push({'card': suggestion})
+    return jsonify({'success': True})
 
 
 if __name__ == '__main__':

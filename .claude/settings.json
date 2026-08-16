@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm i -g vercel@latest 2>&1)",
+      "PowerShell(vercel --version 2>&1)",
+      "PowerShell($paths = @\\(\"C:\\\\Program Files\\\\Git\\\\bin\\\\git.exe\",\"C:\\\\Program Files\\\\Git\\\\cmd\\\\git.exe\",\"$env:LOCALAPPDATA\\\\Programs\\\\Git\\\\bin\\\\git.exe\"\\); foreach \\($p in $paths\\) { Test-Path $p })",
+      "Read(//c/Users/samsl/AppData/Local/Programs/**)",
+      "PowerShell(npm i -g vercel@47.2.2 2>&1)",
+      "PowerShell(npm view vercel versions --json 2>&1 | ConvertFrom-Json | Where-Object { $_ -match \"^4[0-9]\\\\.\" -or $_ -match \"^37\\\\.\" } | Select-Object -Last 20)",
+      "PowerShell(npm i -g vercel@48.0.0 2>&1)",
+      "PowerShell(vercel deploy --prod 2>&1)",
+      "PowerShell(python -m py_compile app.py)"
+    ]
+  }
+}
