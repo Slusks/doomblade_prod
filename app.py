@@ -112,6 +112,7 @@ def plot():
     fig.update_layout(title=title_text,
                       yaxis_title='Number of Creatures that Die to Spell',
                       xaxis_title='Card Names',
+                      xaxis=dict(categoryorder='total descending'),
                       yaxis=dict(tickformat=',d'))
     
     # Convert the plot to JSON format
