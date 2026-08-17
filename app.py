@@ -74,6 +74,9 @@ REJECTED_DOOMBLADES = [
     {"name": "Get Lost", "reason": "Not a Doom Blade — it's white, not black."},
     {"name": "Murder", "reason": "Not a Doom Blade — costs 3 mana and has no targeting restriction."},
     {"name": "Bitter Triumph", "reason": "Not a Doom Blade — has no targeting restriction."},
+    {"name": "Fatal Push", "reason": "Not a Doom Blade — costs 1 mana."},
+    {"name": "Terminate", "reason": "Not a Doom Blade — it's two colors."},
+    {"name": "Walk the Plank", "reason": "Not a Doom Blade — it's sorcery speed."},
 ]
 
 @app.route('/')
@@ -95,6 +98,7 @@ def plot():
     # Extract X and Y data
     x_data = selected_data[0]
     y_data = selected_data[1]
+    total_creatures = selected_data[2] if len(selected_data) > 2 else None
 
     # Create a histogram using Plotly
 
@@ -102,9 +106,12 @@ def plot():
                              #orientation='h',
                              marker_color="black",
                       hovertemplate='%{label}: %{value:,.0f}<extra></extra>' )])
-    fig.update_layout(title=f'How many creatures can each spell target in {selected_format}?', 
-                      yaxis_title='Number of Creatures that Die to Spell', 
-                      xaxis_title='Card Names', 
+    title_text = f'How many creatures can each spell target in {selected_format}?'
+    if total_creatures is not None:
+        title_text += f'<br><sub>{total_creatures:,} creatures legal.</sub>'
+    fig.update_layout(title=title_text,
+                      yaxis_title='Number of Creatures that Die to Spell',
+                      xaxis_title='Card Names',
                       yaxis=dict(tickformat=',d'))
     
     # Convert the plot to JSON format
